@@ -1,7 +1,7 @@
 {
-  "name": "xhook",
-  "version": "1.4.9",
-  "description": "Easily intercept and modify XHR request and response",
+  "name": "@crafts/xhook",
+  "version": "1.0.0-0",
+  "description": "Easily intercept and modify XHR request and response, forked from xhr-hook",
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
     "start": "tsc --watch & parcel dev/index.html --dist-dir dev-dist",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jpillora/xhook"
+    "url": "https://github.com/mukuljainx/xhook"
   },
   "keywords": [
     "xhr",
