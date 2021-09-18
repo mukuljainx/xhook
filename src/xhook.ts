@@ -325,7 +325,7 @@ convertHeaders = xhook.headers = function (h, dest = {}) {
 NativeFormData = WINDOW[FormData];
 
 XHookFormData = function (form) {
-  const args = arguments;
+  const parentArgs = arguments;
   var entries;
   this.fd = form ? new NativeFormData(form) : new NativeFormData();
   this.form = form;
@@ -352,7 +352,7 @@ XHookFormData = function (form) {
   });
   this.append = () => {
     var args;
-    args = slice(args);
+    args = slice(parentArgs);
     entries.push(args);
     return this.fd.append.apply(this.fd, args);
   };
