@@ -1,2 +1,5 @@
 node_modules
 bower_components
+.parcel-cache
+dev-dist
+.DS_Store
