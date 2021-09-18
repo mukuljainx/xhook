@@ -764,17 +764,20 @@ if (typeof WINDOW[FETCH] === "function") {
   xhook[FETCH] = NativeFetch;
   XHookFetchRequest = WINDOW[FETCH] = function (
     url,
-    options: IOptions = {
+    dirtyOptions: IOptions = {
       headers: {},
     }
   ) {
-    var afterHooks, beforeHooks, request;
+    const options = { ...dirtyOptions };
+    let afterHooks, beforeHooks, request;
     options.url = url;
     request = null;
+    // getting the listeners if any
     beforeHooks = xhook.listeners(BEFORE);
     afterHooks = xhook.listeners(AFTER);
+
     return new Promise(function (resolve, reject) {
-      var done, getRequest, processAfter, processBefore, send;
+      let done, getRequest, processAfter, processBefore, send;
       getRequest = function () {
         if (options.body instanceof XHookFormData) {
           options.body = options.body.fd;
