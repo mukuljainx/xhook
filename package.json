@@ -2,12 +2,14 @@
   "name": "xhook",
   "version": "1.4.9",
   "description": "Easily intercept and modify XHR request and response",
-  "main": "dist/xhook.js",
-  "source": "src/dev/index.html",
+  "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
-    "start": "parcel",
+    "start": "parcel dev/index.html --dist-dir dev-dist",
+    "build": "tsc",
     "test": "testcafe chrome:headless tests",
-    "test:all": "testcafe all tests"
+    "test:all": "testcafe all tests",
+    "example": "http-server .",
+    "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,json,html}\""
   },
   "repository": {
     "type": "git",
@@ -36,9 +38,13 @@
   ],
   "license": "MIT",
   "devDependencies": {
+    "@parcel/transformer-typescript-types": "^2.0.0-rc.0",
     "axios": "^0.21.4",
+    "http-server": "^13.0.2",
     "parcel": "^2.0.0-rc.0",
+    "prettier": "^2.4.1",
     "testcafe": "^0.16.2",
-    "testcafe-browser-provider-saucelabs": "^1.3.0"
+    "testcafe-browser-provider-saucelabs": "^1.3.0",
+    "typescript": "^4.4.3"
   }
 }
