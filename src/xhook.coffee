@@ -1,3 +1,6 @@
+# Original xhook file
+# https://github.com/jpillora/xhook/blob/0a8e16a7cbeed7af67e060a0b31076f6fe6e194d/src/xhook.coffee
+
 WINDOW = null;
 if typeof WorkerGlobalScope isnt 'undefined' && self instanceof WorkerGlobalScope
   WINDOW = self
