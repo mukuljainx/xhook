@@ -4,7 +4,7 @@
   "description": "Easily intercept and modify XHR request and response",
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
-    "start": "parcel dev/index.html --dist-dir dev-dist",
+    "start": "tsc --watch & parcel dev/index.html --dist-dir dev-dist",
     "build": "tsc",
     "test": "testcafe chrome:headless tests",
     "test:all": "testcafe all tests",
