@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <h5>example1.txt</h5>
 <pre id="one"></pre>
 
@@ -11,23 +11,21 @@
 <div ng-app="app"></div>
 
 <script type="text/javascript">
-//hook and modify 'responseText' of 'example2.txt'
-xhook.after(function(request, response) {
-  if(request.url.match(/example2\.txt$/))
-    response.data = response.data.replace(/[aeiou]/g,'z');
-});
-
-//setup angular
-var app = angular.module('app', []);
-app.run(function($http) {
-
-  $http.get('example1.txt').success(function(str) {
-    document.getElementById('one').innerHTML = str;
+  //hook and modify 'responseText' of 'example2.txt'
+  xhook.after(function (request, response) {
+    if (request.url.match(/example2\.txt$/))
+      response.data = response.data.replace(/[aeiou]/g, 'z');
   });
 
-  $http.get('example2.txt').success(function(str) {
-    document.getElementById('two').innerHTML = str;
-  });
+  //setup angular
+  var app = angular.module('app', []);
+  app.run(function ($http) {
+    $http.get('example1.txt').success(function (str) {
+      document.getElementById('one').innerHTML = str;
+    });
 
-});
+    $http.get('example2.txt').success(function (str) {
+      document.getElementById('two').innerHTML = str;
+    });
+  });
 </script>

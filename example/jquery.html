@@ -1,4 +1,3 @@
-
 <h5>example1.txt</h5>
 <pre id="one"></pre>
 
@@ -9,18 +8,18 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
 
 <script type="text/javascript">
-//hook and modify 'responseText' of 'example2.txt'
-xhook.after(function(request, response) {
-  if(request.url.match(/example2\.txt$/))
-    response.text = response.text.replace(/[aeiou]/g,'z');
-});
+  //hook and modify 'responseText' of 'example2.txt'
+  xhook.after(function (request, response) {
+    if (request.url.match(/example2\.txt$/))
+      response.text = response.text.replace(/[aeiou]/g, 'z');
+  });
 
-//jquery
-$.get('example1.txt').done(function(str) {
-  $('#one').text(str);
-});
+  //jquery
+  $.get('example1.txt').done(function (str) {
+    $('#one').text(str);
+  });
 
-$.get('example2.txt').done(function(str) {
-  $('#two').text(str);
-});
+  $.get('example2.txt').done(function (str) {
+    $('#two').text(str);
+  });
 </script>

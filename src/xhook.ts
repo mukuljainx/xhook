@@ -50,33 +50,33 @@ const init = () => {
   //for compression
   document = WINDOW.document;
 
-  BEFORE = "before";
+  BEFORE = 'before';
 
-  AFTER = "after";
+  AFTER = 'after';
 
-  READY_STATE = "readyState";
+  READY_STATE = 'readyState';
 
-  ON = "addEventListener";
+  ON = 'addEventListener';
 
-  OFF = "removeEventListener";
+  OFF = 'removeEventListener';
 
-  FIRE = "dispatchEvent";
+  FIRE = 'dispatchEvent';
 
-  XMLHTTP = "XMLHttpRequest";
+  XMLHTTP = 'XMLHttpRequest';
 
-  FETCH = "fetch";
+  FETCH = 'fetch';
 
-  FormData = "FormData";
+  FormData = 'FormData';
 
-  UPLOAD_EVENTS = ["load", "loadend", "loadstart"];
+  UPLOAD_EVENTS = ['load', 'loadend', 'loadstart'];
 
-  COMMON_EVENTS = ["progress", "abort", "error", "timeout"];
+  COMMON_EVENTS = ['progress', 'abort', 'error', 'timeout'];
 
   //parse IE version
   useragent =
-    typeof navigator !== "undefined" && navigator["useragent"]
+    typeof navigator !== 'undefined' && navigator['useragent']
       ? navigator.userAgent
-      : "";
+      : '';
 
   msie = parseInt((/msie (\d+)/.exec(useragent.toLowerCase()) || [])[1]);
 
@@ -105,7 +105,7 @@ const init = () => {
   };
 
   depricatedProp = function (p) {
-    return p === "returnValue" || p === "totalSize" || p === "position";
+    return p === 'returnValue' || p === 'totalSize' || p === 'position';
   };
 
   mergeObjects = function (src, dst) {
@@ -222,7 +222,7 @@ const init = () => {
       if (legacylistener) {
         legacylistener.apply(emitter, args);
       }
-      ref = listeners(event).concat(listeners("*"));
+      ref = listeners(event).concat(listeners('*'));
       for (i = j = 0, len = ref.length; j < len; i = ++j) {
         listener = ref[i];
         listener.apply(emitter, args);
@@ -261,21 +261,21 @@ const init = () => {
 
   xhook[BEFORE] = function (handler, i) {
     if (handler.length < 1 || handler.length > 2) {
-      throw "invalid hook";
+      throw 'invalid hook';
     }
     return xhook[ON](BEFORE, handler, i);
   };
 
   xhook[AFTER] = function (handler, i) {
     if (handler.length < 2 || handler.length > 3) {
-      throw "invalid hook";
+      throw 'invalid hook';
     }
     return xhook[ON](AFTER, handler, i);
   };
 
   xhook.enable = function () {
     WINDOW[XMLHTTP] = XHookHttpRequest;
-    if (typeof XHookFetchRequest === "function") {
+    if (typeof XHookFetchRequest === 'function') {
       WINDOW[FETCH] = XHookFetchRequest;
     }
     if (NativeFormData) {
@@ -295,16 +295,16 @@ const init = () => {
   convertHeaders = xhook.headers = function (h, dest = {}) {
     var header, headers, j, k, len, name, ref, v, value;
     switch (typeof h) {
-      case "object":
+      case 'object':
         headers = [];
         for (k in h) {
           v = h[k];
           name = k.toLowerCase();
           headers.push(`${name}:\t${v}`);
         }
-        return headers.join("\n") + "\n";
-      case "string":
-        headers = h.split("\n");
+        return headers.join('\n') + '\n';
+      case 'string':
+        headers = h.split('\n');
         for (j = 0, len = headers.length; j < len; j++) {
           header = headers[j];
           if (/([^:]+):\s*(.+)/.test(header)) {
@@ -435,7 +435,7 @@ const init = () => {
       }
     };
     readBody = function () {
-      if (!xhr.responseType || xhr.responseType === "text") {
+      if (!xhr.responseType || xhr.responseType === 'text') {
         response.text = xhr.responseText;
         response.data = xhr.responseText;
         try {
@@ -445,14 +445,14 @@ const init = () => {
         // when the type is text even though it's against the spec due to several libraries
         // and browser vendors who allow this behavior. causing these requests to fail when
         // xhook is installed on a page.
-      } else if (xhr.responseType === "document") {
+      } else if (xhr.responseType === 'document') {
         response.xml = xhr.responseXML;
         response.data = xhr.responseXML;
       } else {
         response.data = xhr.response;
       }
       //new in some browsers
-      if ("responseURL" in xhr) {
+      if ('responseURL' in xhr) {
         response.finalUrl = xhr.responseURL;
       }
     };
@@ -462,16 +462,16 @@ const init = () => {
       facade.statusText = response.statusText;
     };
     writeBody = function () {
-      if ("text" in response) {
+      if ('text' in response) {
         facade.responseText = response.text;
       }
-      if ("xml" in response) {
+      if ('xml' in response) {
         facade.responseXML = response.xml;
       }
-      if ("data" in response) {
+      if ('data' in response) {
         facade.response = response.data;
       }
-      if ("finalUrl" in response) {
+      if ('finalUrl' in response) {
         facade.responseURL = response.finalUrl;
       }
     };
@@ -482,7 +482,7 @@ const init = () => {
         // make fake events for libraries that actually check the type on
         // the event object
         if (currentState === 1) {
-          facade[FIRE]("loadstart", {});
+          facade[FIRE]('loadstart', {});
         }
         if (currentState === 2) {
           writeHead();
@@ -491,7 +491,7 @@ const init = () => {
           writeHead();
           writeBody();
         }
-        facade[FIRE]("readystatechange", {});
+        facade[FIRE]('readystatechange', {});
         //delay final events incase of error
         if (currentState === 4) {
           if (request.async === false) {
@@ -504,9 +504,9 @@ const init = () => {
     };
     emitFinal = function () {
       if (!hasError) {
-        facade[FIRE]("load", {});
+        facade[FIRE]('load', {});
       }
-      facade[FIRE]("loadend", {});
+      facade[FIRE]('loadend', {});
       if (hasError) {
         facade[READY_STATE] = 0;
       }
@@ -564,21 +564,21 @@ const init = () => {
     hasErrorHandler = function () {
       hasError = true;
     };
-    facade[ON]("error", hasErrorHandler);
-    facade[ON]("timeout", hasErrorHandler);
-    facade[ON]("abort", hasErrorHandler);
+    facade[ON]('error', hasErrorHandler);
+    facade[ON]('timeout', hasErrorHandler);
+    facade[ON]('abort', hasErrorHandler);
     // progress means we're current downloading...
-    facade[ON]("progress", function () {
+    facade[ON]('progress', function () {
       //progress events are followed by readystatechange for some reason...
       if (currentState < 3) {
         setReadyState(3);
       } else {
-        facade[FIRE]("readystatechange", {}); //TODO fake an XHR event
+        facade[FIRE]('readystatechange', {}); //TODO fake an XHR event
       }
     });
     // initialise 'withCredentials' on facade xhr in browsers with it
     // or if explicitly told to do so
-    if ("withCredentials" in xhr || xhook.addWithCredentials) {
+    if ('withCredentials' in xhr || xhook.addWithCredentials) {
       facade.withCredentials = false;
     }
     facade.status = 0;
@@ -608,11 +608,11 @@ const init = () => {
     };
     facade.send = function (body) {
       var hooks, k, l, len1, modk, process, ref1, send;
-      ref1 = ["type", "timeout", "withCredentials"];
+      ref1 = ['type', 'timeout', 'withCredentials'];
       //read xhr settings before hooking
       for (l = 0, len1 = ref1.length; l < len1; l++) {
         k = ref1[l];
-        modk = k === "type" ? "responseType" : k;
+        modk = k === 'type' ? 'responseType' : k;
         if (modk in facade) {
           request[k] = facade[modk];
         }
@@ -639,11 +639,11 @@ const init = () => {
           request.user,
           request.pass
         );
-        ref2 = ["type", "timeout", "withCredentials"];
+        ref2 = ['type', 'timeout', 'withCredentials'];
         //write xhr settings
         for (m = 0, len2 = ref2.length; m < len2; m++) {
           k = ref2[m];
-          modk = k === "type" ? "responseType" : k;
+          modk = k === 'type' ? 'responseType' : k;
           if (k in request) {
             xhr[modk] = request[k];
           }
@@ -674,12 +674,12 @@ const init = () => {
         done = function (userResponse) {
           //break chain - provide dummy response (readyState 4)
           if (
-            typeof userResponse === "object" &&
-            (typeof userResponse.status === "number" ||
-              typeof response.status === "number")
+            typeof userResponse === 'object' &&
+            (typeof userResponse.status === 'number' ||
+              typeof response.status === 'number')
           ) {
             mergeObjects(userResponse, response);
-            if (indexOf.call(userResponse, "data") < 0) {
+            if (indexOf.call(userResponse, 'data') < 0) {
               userResponse.data = userResponse.response || userResponse.text;
             }
             setReadyState(4);
@@ -718,7 +718,7 @@ const init = () => {
       if (transiting) {
         xhr.abort(); //this will emit an 'abort' for us
       } else {
-        facade[FIRE]("abort", {});
+        facade[FIRE]('abort', {});
       }
     };
     facade.setRequestHeader = function (header, value) {
@@ -728,7 +728,7 @@ const init = () => {
       name = request.headerNames[lName] = request.headerNames[lName] || header;
       //append header to any previous values
       if (request.headers[name]) {
-        value = request.headers[name] + ", " + value;
+        value = request.headers[name] + ', ' + value;
       }
       request.headers[name] = value;
     };
@@ -756,11 +756,11 @@ const init = () => {
     facade.LOADING = 3;
     facade.DONE = 4;
     // fill in default values for an empty XHR object according to the spec
-    facade.response = "";
-    facade.responseText = "";
+    facade.response = '';
+    facade.responseText = '';
     facade.responseXML = null;
     facade.readyState = 0;
-    facade.statusText = "";
+    facade.statusText = '';
     return facade;
   };
 
@@ -770,7 +770,7 @@ const init = () => {
     body?: any;
   }
   //patch Fetch
-  if (typeof WINDOW[FETCH] === "function") {
+  if (typeof WINDOW[FETCH] === 'function') {
     NativeFetch = WINDOW[FETCH];
     xhook[FETCH] = NativeFetch;
     XHookFetchRequest = WINDOW[FETCH] = function (
@@ -869,11 +869,11 @@ const init = () => {
 
   XHookHttpRequest.DONE = 4;
 
-  if (typeof define === "function" && define.amd) {
-    define("xhook", [], function () {
+  if (typeof define === 'function' && define.amd) {
+    define('xhook', [], function () {
       return xhook;
     });
-  } else if (typeof module === "object" && module.exports) {
+  } else if (typeof module === 'object' && module.exports) {
     module.exports = { xhook };
   } else if (WINDOW) {
     WINDOW.xhook = xhook;

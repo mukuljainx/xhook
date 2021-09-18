@@ -1,4 +1,3 @@
-
 <h5>response headers</h5>
 <pre id="res"></pre>
 
@@ -8,18 +7,18 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
 
 <script type="text/javascript">
-// hook and generate fake 'responseText'
-xhook.before(function(request) {
-  //override request header 'Content-type'
-  request.headers['Content-type'] = 'awesome/file';
-});
+  // hook and generate fake 'responseText'
+  xhook.before(function (request) {
+    //override request header 'Content-type'
+    request.headers['Content-type'] = 'awesome/file';
+  });
 
-xhook.after(function(request, response) {
-  response.headers['Foo'] = 'Bar';
-});
+  xhook.after(function (request, response) {
+    response.headers['Foo'] = 'Bar';
+  });
 
-//jquery call
-$.get('example1.txt').always(function(res, success, xhr) {
-  $("#res").html(xhr.getAllResponseHeaders());
-});
+  //jquery call
+  $.get('example1.txt').always(function (res, success, xhr) {
+    $('#res').html(xhr.getAllResponseHeaders());
+  });
 </script>

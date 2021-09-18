@@ -1,4 +1,3 @@
-
 <h5>modified request</h5>
 <pre id="one"></pre>
 
@@ -9,22 +8,22 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
 
 <script type="text/javascript">
-// hook and modify request from POST -> GET to and 'example1' -> 'example2'
-xhook.before(function(request) {
-  request.method = 'GET';
-  request.url = 'example2.txt';
-});
+  // hook and modify request from POST -> GET to and 'example1' -> 'example2'
+  xhook.before(function (request) {
+    request.method = 'GET';
+    request.url = 'example2.txt';
+  });
 
-//jquery call
-$.post('example1.txt').done(function(str) {
-  $('#one').text(str);
-});
+  //jquery call
+  $.post('example1.txt').done(function (str) {
+    $('#one').text(str);
+  });
 
-fetch('example1.txt', { method: 'POST' })
-    .then(function(response) {
+  fetch('example1.txt', { method: 'POST' })
+    .then(function (response) {
       return response.text();
     })
-    .then(function(str) {
+    .then(function (str) {
       $('#fetch_one').text(str);
     });
 </script>
