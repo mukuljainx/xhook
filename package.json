@@ -1,6 +1,6 @@
 {
   "name": "@crafts/xhook",
-  "version": "1.0.0-0",
+  "version": "1.0.0-1",
   "description": "Easily intercept and modify XHR request and response, forked from xhr-hook",
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "main": "dist/xhook.js",
