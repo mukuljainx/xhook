@@ -821,7 +821,7 @@ const init = () => {
       return xhook;
     });
   } else if (typeof module === 'object' && module.exports) {
-    module.exports = { xhook };
+    module.exports = xhook;
   } else if (WINDOW) {
     WINDOW.xhook = xhook;
   }

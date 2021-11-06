@@ -4,8 +4,8 @@
   "description": "Easily intercept and modify XHR request and response, forked from xhr-hook",
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "main": "dist/xhook.js",
-  "module": "dist/module.js",
-  "types": "types",
+  "module": "dist/xhook.js",
+  "types": "types/index.d.ts",
   "files": [
     "dist",
     "types"
