@@ -3,17 +3,34 @@ import f from '../dist/xhook';
 console.log(99, f.xhook);
 const xhook = f.xhook;
 
+const printLine = () =>
+  console.log(
+    new Array(50)
+      .fill(0)
+      .map(() => '*')
+      .join('')
+  );
+
 xhook.before((req, callback) => {
+  printLine();
   console.log('XHOOK BEFORE');
   console.log(req);
-  console.log('\n\n');
-  callback();
+  const finalResponse = {
+    status: 200,
+    text: 'lol',
+    // headers,
+    type: 'json',
+  };
+  callback(finalResponse);
+  // callback();
+  printLine();
 });
 
 xhook.after(function (request, originalResponse) {
+  printLine();
   console.log('XHOOK AFTER');
   console.log({ request, originalResponse });
-  console.log('\n\n');
+  printLine();
 });
 
 const URL = {

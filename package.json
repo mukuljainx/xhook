@@ -3,12 +3,19 @@
   "version": "1.0.0-0",
   "description": "Easily intercept and modify XHR request and response, forked from xhr-hook",
   "browserslist": "> 0.5%, last 2 versions, not dead",
+  "main": "dist/xhook.js",
+  "module": "dist/module.js",
+  "types": "types",
+  "files": [
+    "dist",
+    "types"
+  ],
   "scripts": {
     "start": "tsc --watch & parcel dev/index.html --dist-dir dev-dist",
     "build": "tsc",
-    "test": "testcafe chrome:headless tests",
+    "test": "export NODE_TLS_REJECT_UNAUTHORIZED=0 && testcafe chrome:headless tests",
     "test:all": "testcafe all tests",
-    "example": "http-server .",
+    "example": "http-server . --port 3000",
     "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,json,html}\""
   },
   "repository": {

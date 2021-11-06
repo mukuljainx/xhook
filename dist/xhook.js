@@ -11,17 +11,16 @@ var __assign = (this && this.__assign) || function () {
 };
 var init = function () {
     var AFTER, BEFORE, COMMON_EVENTS, EventEmitter, FETCH, FIRE, FormData, NativeFetch, NativeFormData, NativeXMLHttp, OFF, ON, READY_STATE, UPLOAD_EVENTS, WINDOW, XHookFetchRequest, XHookFormData, XHookHttpRequest, XMLHTTP, base, convertHeaders, depricatedProp, document, fakeEvent, mergeObjects, msie, nullify, proxyEvents, slice, useragent, xhook, indexOf = [].indexOf;
-    WINDOW = window;
-    // if (
-    //   typeof WorkerGlobalScope !== "undefined" &&
-    //   self instanceof WorkerGlobalScope
-    // ) {
-    //   WINDOW = self;
-    // } else if (typeof global !== "undefined") {
-    //   WINDOW = global;
-    // } else {
-    //   WINDOW = window;
-    // }
+    if (typeof WorkerGlobalScope !== 'undefined' &&
+        self instanceof WorkerGlobalScope) {
+        WINDOW = self;
+    }
+    else if (typeof global !== 'undefined') {
+        WINDOW = global;
+    }
+    else {
+        WINDOW = window;
+    }
     //for compression
     document = WINDOW.document;
     BEFORE = 'before';
@@ -271,53 +270,6 @@ var init = function () {
     // is hooked, so we can ensure the real FormData
     // object is used on send
     NativeFormData = WINDOW[FormData];
-    // XHookFormData = NativeFormData;
-    // XHookFormData = function (form) {
-    //   const parentArgs = arguments;
-    //   let entries;
-    //   this.fd = form ? new NativeFormData(form) : new NativeFormData();
-    //   this.form = form;
-    //   entries = [];
-    //   Object.defineProperty(this, "entries", {
-    //     get: function () {
-    //       let fentries;
-    //       //extract form entries
-    //       fentries = !form
-    //         ? []
-    //         : slice(form.querySelectorAll("input,select"))
-    //             .filter(function (e) {
-    //               var ref;
-    //               return (
-    //                 ((ref = e.type) !== "checkbox" && ref !== "radio") || e.checked
-    //               );
-    //             })
-    //             .map(function (e) {
-    //               return [e.name, e.type === "file" ? e.files : e.value];
-    //             });
-    //       //combine with js entries
-    //       return fentries.concat(entries);
-    //     },
-    //   });
-    //   this.append = () => {
-    //     var args;
-    //     args = slice(parentArgs);
-    //     entries.push(args);
-    //     return this.fd.append.apply(this.fd, args);
-    //   };
-    // };
-    // class XHookFormDataNEW {
-    //   fd: FormData;
-    //   form: any;
-    //   constructor(form) {
-    //     this.fd = form ? new NativeFormData(form) : new NativeFormData();
-    //     this.form = form;
-    //   }
-    // }
-    // if (NativeFormData) {
-    //   //expose native formdata as xhook.FormData incase its needed
-    //   xhook[FormData] = NativeFormData;
-    //   WINDOW[FormData] = XHookFormData;
-    // }
     //patch XHR
     NativeXMLHttp = WINDOW[XMLHTTP];
     xhook[XMLHTTP] = NativeXMLHttp;
